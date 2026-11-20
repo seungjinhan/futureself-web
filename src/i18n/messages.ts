@@ -169,6 +169,8 @@ const ko = {
   appLinkTitle: "퓨처셀프 앱",
   appLinkNote: "토스에서 더 편하게 봐요",
   appLinkButton: "앱 바로가기",
+  appOnlyTitle: "앱에서 쓸 수 있어요",
+  appOnlyNote: "언어, 디자인, 관리자 같은 추가 기능은 토스 앱의 퓨처셀프에서 쓸 수 있어요.",
 };
 
 export type Messages = typeof ko;
@@ -342,6 +344,8 @@ const en: Messages = {
   appLinkTitle: "FutureSelf app",
   appLinkNote: "Easier to use in Toss",
   appLinkButton: "Open app",
+  appOnlyTitle: "Available in the app",
+  appOnlyNote: "Extra features like language, design, and admin are available in FutureSelf on the Toss app.",
 };
 
 export const MESSAGES: Record<Language, Messages> = { ko, en };

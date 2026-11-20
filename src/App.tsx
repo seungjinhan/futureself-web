@@ -146,13 +146,14 @@ export function App({ initialHome, initialSorts }: Props) {
       {IS_WEB && <AppLinkBar />}
       {top?.name === "entry" && <DetailScreen key={top.id} entryId={top.id} initial={top.initial} isAdmin={isAdmin} onTag={openTag} onEdit={(entry) => push({ name: "entryForm", type: entry.type, id: entry.id })} />}
       {top?.name === "privacy" && <PrivacyScreen />}
-      {top?.name === "design" && <DesignScreen />}
-      {top?.name === "adminLogin" && <AdminLoginScreen onDone={() => history.back()} />}
-      {top?.name === "adminComments" && isAdmin && <AdminCommentsScreen onChanged={changed} onOpenEntry={(id) => openEntry({ id }, "admin")} />}
-      {top?.name === "adminEntries" && isAdmin && (
+      {/* 디자인·관리자 화면은 토스판에만 있어요. 웹판(IS_WEB)에서는 빌드할 때 이 코드가 빠져요. */}
+      {!IS_WEB && top?.name === "design" && <DesignScreen />}
+      {!IS_WEB && top?.name === "adminLogin" && <AdminLoginScreen onDone={() => history.back()} />}
+      {!IS_WEB && top?.name === "adminComments" && isAdmin && <AdminCommentsScreen onChanged={changed} onOpenEntry={(id) => openEntry({ id }, "admin")} />}
+      {!IS_WEB && top?.name === "adminEntries" && isAdmin && (
         <AdminEntriesScreen key={top.type} type={top.type} version={version} onNew={() => push({ name: "entryForm", type: top.type })} onEdit={(entry) => push({ name: "entryForm", type: entry.type, id: entry.id })} />
       )}
-      {top?.name === "entryForm" && isAdmin && (
+      {!IS_WEB && top?.name === "entryForm" && isAdmin && (
         <EntryFormScreen
           key={`${top.type}:${top.id ?? "new"}`}
           type={top.type}

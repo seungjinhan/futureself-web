@@ -2011,6 +2011,15 @@ button.is-busy:disabled {
   text-decoration: none;
 }
 
+/* 더보기에서 앱에서만 쓰는 기능(언어·디자인·관리자)은 흐리게 보여요. 누르면 앱 안내 시트가 떠요. */
+.tile.is-disabled {
+  opacity: 0.42;
+}
+
+.app-only-link {
+  text-decoration: none;
+}
+
 /* 넓은 화면에서는 가운데 휴대폰 폭(480px)으로 보여줘요. 고정된 메뉴·알림·시트도 같은 폭에 맞춰요. */
 @media (min-width: 560px) {
   html.is-web {

@@ -32,14 +32,15 @@ function restoreSorts(value: unknown): Sorts {
   return Object.fromEntries(ENTRY_TYPES.map((type) => [type, saved[type] === "rating" ? "rating" : "latest"])) as Sorts;
 }
 
+const app = <ErrorBoundary>{(recovered) => <App initialHome={recovered ? null : restoreHome(home)} initialSorts={restoreSorts(sorts)} />}</ErrorBoundary>;
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <I18nProvider initial={isLanguage(language) ? language : matchLanguage(deviceLocale())}>
       <ToastProvider>
         <GlobalProgress />
-        <AdminProvider>
-          <ErrorBoundary>{(recovered) => <App initialHome={recovered ? null : restoreHome(home)} initialSorts={restoreSorts(sorts)} />}</ErrorBoundary>
-        </AdminProvider>
+        {/* 웹판에는 관리자 기능이 없어서 AdminProvider(관리자 로그인 복원)를 넣지 않아요. useAdmin()은 늘 관리자가 아니에요. */}
+        {IS_WEB ? app : <AdminProvider>{app}</AdminProvider>}
       </ToastProvider>
     </I18nProvider>
   </StrictMode>,
