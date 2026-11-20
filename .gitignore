@@ -1,0 +1,13 @@
+node_modules
+dist
+dist-web
+*.ait
+.DS_Store
+.env*
+# 로컬에만 두는 파일 (공개 저장소 futureself-web에 올리지 않아요)
+PLAN.md
+REVIEW_*.md
+/android-handoff/
+android-handoff.zip
+/apps-script/
+/assets/
