@@ -11,16 +11,24 @@ import { deviceLocale, IS_WEB, loadJson, STORAGE_KEYS, watchErrors } from "./lib
 import { applyLayout, applyTheme, isLayout, isTheme } from "./lib/theme";
 import { ENTRY_TYPES, type HomeData } from "./lib/types";
 import "./styles.css";
+import "./tossStyles";
 
 watchErrors();
 // 웹판은 넓은 화면에서 가운데 휴대폰 폭으로 보여줘요(styles.css의 .is-web).
 if (IS_WEB) document.documentElement.classList.add("is-web");
 
-const [home, language, sorts, theme, layout] = await Promise.all([loadJson(STORAGE_KEYS.home), loadJson(STORAGE_KEYS.language), loadJson(STORAGE_KEYS.sort), loadJson(STORAGE_KEYS.theme), loadJson(STORAGE_KEYS.layout)]);
+// 웹판은 언어·디자인을 고를 수 없어서 그 저장값을 읽지 않아요. 기기 언어와 기본 디자인으로 보여줘요.
+const [home, language, sorts, theme, layout] = await Promise.all([
+  loadJson(STORAGE_KEYS.home),
+  IS_WEB ? null : loadJson(STORAGE_KEYS.language),
+  loadJson(STORAGE_KEYS.sort),
+  IS_WEB ? null : loadJson(STORAGE_KEYS.theme),
+  IS_WEB ? null : loadJson(STORAGE_KEYS.layout),
+]);
 
 // 화면을 그리기 전에 고른 디자인을 적용해요.
-applyTheme(isTheme(theme) ? theme : "default");
-applyLayout(isLayout(layout) ? layout : "card");
+applyTheme(!IS_WEB && isTheme(theme) ? theme : "default");
+if (!IS_WEB) applyLayout(isLayout(layout) ? layout : "card");
 
 function restoreHome(value: unknown): HomeData | null {
   const data = value as HomeData | null;

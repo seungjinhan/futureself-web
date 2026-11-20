@@ -27,6 +27,11 @@ function Tile({ icon, label, onClick, danger = false, disabled = false, badge }:
       <span className="tile-icon">{icon}</span>
       <span className="tile-label">{label}</span>
       {badge ? <span className="tile-badge">{badge}</span> : null}
+      {disabled && (
+        <span className="tile-lock">
+          <LockIcon />
+        </span>
+      )}
     </button>
   );
 }

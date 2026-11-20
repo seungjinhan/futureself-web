@@ -1,22 +1,22 @@
 import aitDevtools from "@apps-in-toss/devtools/unplugin";
 import react from "@vitejs/plugin-react";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineConfig, type Plugin } from "vite";
 
-const TOSS_PLATFORM = fileURLToPath(new URL("./src/lib/platform.ts", import.meta.url));
-const WEB_PLATFORM = fileURLToPath(new URL("./src/lib/platform.web.ts", import.meta.url));
 const WEB_ICON = fileURLToPath(new URL("./web/icon-192.png", import.meta.url));
 
-/** 웹판(GitHub Pages): 토스 SDK를 쓰는 platform.ts를 브라우저용 platform.web.ts로 바꾸고, 아이콘과 설명을 넣어요. 아이콘은 웹판에만 넣어요(맨 위 바로가기와 탭 아이콘). */
+/** 웹판(GitHub Pages): 토스 SDK를 쓰는 platform.ts를 브라우저용 platform.web.ts로, 토스판 전용 스타일을 빈 파일로 바꾸고, 아이콘과 설명을 넣어요. 아이콘은 웹판에만 넣어요(맨 위 바로가기와 탭 아이콘). */
 function webVersion(): Plugin {
   return {
     name: "futureself-web",
     enforce: "pre",
+    // 옆에 같은 이름의 .web.ts가 있는 파일(lib/platform.ts, tossStyles.ts)은 웹판에서 .web.ts로 바꿔요.
     async resolveId(source, importer, options) {
-      if (!/platform$/.test(source)) return null;
+      if (!source.startsWith(".")) return null;
       const resolved = await this.resolve(source, importer, { ...options, skipSelf: true });
-      return resolved?.id === TOSS_PLATFORM ? WEB_PLATFORM : null;
+      const web = resolved?.id.replace(/\.ts$/, ".web.ts");
+      return web && web !== resolved?.id && existsSync(web) ? web : null;
     },
     transformIndexHtml(html) {
       return html.replace(

@@ -2,7 +2,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { LAYOUTS, THEMES } from "./theme";
 
-const CSS = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
+// 기본 테마는 styles.css에, 나머지 테마와 화면 구성은 토스판 전용 styles.toss.css에 있어요. 둘을 합쳐서 봐요.
+const CSS = ["../styles.css", "../styles.toss.css"].map((file) => readFileSync(new URL(file, import.meta.url), "utf8")).join("\n");
 
 /** styles.css에서 [data-theme="이름"] 묶음의 변수를 읽어요. */
 function tokensOf(theme: string): Record<string, string> {

@@ -1,0 +1,829 @@
+/*
+ * 토스 미니앱에서만 쓰는 스타일이에요. src/tossStyles.ts가 불러오고, 웹판(GitHub Pages)에서는 tossStyles.web.ts로 바뀌어 넣지 않아요.
+ * 기본 외 색 테마, 디자인 화면, 화면 구성(목록형·갤러리형), 관리자 로그인·기록 입력·댓글 승인이에요. 더보기 > 언어·디자인·관리자는 웹판에서 앱 안내만 띄워요.
+ * styles.css 다음에 불러와요. 여기 규칙은 styles.css와 겹치지 않거나 더 구체적인 선택자라 순서가 바뀌어도 같아요.
+ */
+
+[data-theme="neutral"] {
+  --primary: #1f1f1f;
+  --primary-2: #0063c2;
+  --accent: #f8c723;
+  --on-accent: #1f1f1f;
+  --mint: #dddddd;
+  --bg: #f6f6f6;
+  --bg-clear: rgba(246, 246, 246, 0);
+  --surface: #ffffff;
+  --surface-2: #ebebeb;
+  --ink: #111111;
+  --ink-2: #4d4d4d;
+  --ink-3: #767676;
+  --line: #dedede;
+  --star: #e8a900;
+  --star-soft: #fff4d1;
+  --star-ink: #7a5600;
+  --star-empty: #c9c9c9;
+  --tab-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+/* 버터: 깊은 파랑에 버터 옐로 포인트 */
+[data-theme="butter"] {
+  --primary: #1f3b88;
+  --primary-2: #2a4fb5;
+  --accent: #fdee8c;
+  --on-accent: #1d2f7a;
+  --mint: #edf1fa;
+  --bg: #ffffff;
+  --bg-clear: rgba(255, 255, 255, 0);
+  --surface: #ffffff;
+  --surface-2: #f5f6f8;
+  --ink: #1b1d21;
+  --ink-2: #5d626b;
+  --ink-3: #8a909a;
+  --line: #e6e9ef;
+  --star: #f5b300;
+  --star-soft: #fff7e0;
+  --star-ink: #8a6400;
+  --star-empty: #d5dad7;
+  --tab-shadow: 0 8px 24px rgba(31, 59, 136, 0.28);
+}
+
+/* 초콜릿: 깊은 갈색에 크림색 포인트 */
+[data-theme="chocolate"] {
+  --primary: #6b4423;
+  --primary-2: #7a4c1f;
+  --accent: #f0dfc4;
+  --on-accent: #4a3520;
+  --mint: #f4eee6;
+  --bg: #ffffff;
+  --bg-clear: rgba(255, 255, 255, 0);
+  --surface: #ffffff;
+  --surface-2: #f7f5f2;
+  --ink: #221d19;
+  --ink-2: #625a53;
+  --ink-3: #8e867e;
+  --line: #ebe6df;
+  --star: #f5b300;
+  --star-soft: #fff7e0;
+  --star-ink: #8a6400;
+  --star-empty: #d5dad7;
+  --tab-shadow: 0 8px 24px rgba(107, 68, 35, 0.28);
+}
+
+/* 말차: 깊은 녹차색에 차 금색 포인트, 더 둥근 모서리 */
+[data-theme="matcha"] {
+  --primary: #40501f;
+  --primary-2: #4d6122;
+  --accent: #e8b800;
+  --on-accent: #2b3312;
+  --mint: #eef2e3;
+  --bg: #ffffff;
+  --bg-clear: rgba(255, 255, 255, 0);
+  --surface: #ffffff;
+  --surface-2: #f5f6f1;
+  --ink: #1e2118;
+  --ink-2: #5b6152;
+  --ink-3: #8a9080;
+  --line: #e6e9df;
+  --star: #f5b300;
+  --star-soft: #fff7e0;
+  --star-ink: #8a6400;
+  --star-empty: #d5dad7;
+  --tab-shadow: 0 8px 24px rgba(64, 80, 31, 0.28);
+  --r-xs: 10px;
+  --r-sm: 14px;
+  --r-md: 16px;
+  --r-lg: 18px;
+  --radius: 22px;
+  --r-xl: 26px;
+  --r-2xl: 30px;
+}
+
+/* 스톤: 보랏빛이 도는 회색과 흙빛 포인트 */
+[data-theme="stone"] {
+  --primary: #25252a;
+  --primary-2: #5d566b;
+  --accent: #f4e1b7;
+  --on-accent: #25252a;
+  --mint: #dcd9ea;
+  --bg: #f4f4f6;
+  --bg-clear: rgba(244, 244, 246, 0);
+  --surface: #ffffff;
+  --surface-2: #e9e9ed;
+  --ink: #25252a;
+  --ink-2: #56565c;
+  --ink-3: #7d7d84;
+  --line: #dcdce2;
+  --star: #c79a1e;
+  --star-soft: #f4e1b7;
+  --star-ink: #5e4a08;
+  --star-empty: #cfcfd6;
+  --tab-shadow: 0 8px 24px rgba(37, 37, 42, 0.24);
+}
+
+/* Y2K: 아주 옅은 연보라 바탕, 형광 연두, 진한 테두리와 각진 모서리 */
+[data-theme="y2k"] {
+  --primary: #2d241b;
+  --primary-2: #4338a8;
+  --accent: #c5e17a;
+  --on-accent: #2d241b;
+  --mint: #f1f7dc;
+  --bg: #eceeff;
+  --bg-clear: rgba(236, 238, 255, 0);
+  --surface: #ffffff;
+  --surface-2: #f4f1ec;
+  --ink: #2d241b;
+  --ink-2: #5a4f44;
+  --ink-3: #7a6f64;
+  --line: #2d241b;
+  --star: #ffb400;
+  --star-soft: #fff0bf;
+  --star-ink: #6b4e00;
+  --star-empty: #a9a4d6;
+  --tab-shadow: 4px 4px 0 #b7bbf5;
+  --admin: #b3121a;
+  --r-xs: 0px;
+  --r-sm: 0px;
+  --r-md: 0px;
+  --r-lg: 0px;
+  --radius: 0px;
+  --r-xl: 0px;
+  --r-2xl: 0px;
+  --r-pill: 0px;
+}
+
+/* 벚꽃: 깊은 장밋빛에 연분홍 포인트 (아래 넷은 Astryx에 없는, 이 앱에서 더한 테마예요) */
+[data-theme="blossom"] {
+  --primary: #722b46;
+  --primary-2: #8f2a50;
+  --accent: #ffd6e4;
+  --on-accent: #6b1838;
+  --mint: #f9edf1;
+  --bg: #ffffff;
+  --bg-clear: rgba(255, 255, 255, 0);
+  --surface: #ffffff;
+  --surface-2: #f7f5f6;
+  --ink: #211b1e;
+  --ink-2: #625a5e;
+  --ink-3: #8f868a;
+  --line: #ece6e8;
+  --star: #f5b300;
+  --star-soft: #fff7e0;
+  --star-ink: #8a6400;
+  --star-empty: #d5dad7;
+  --tab-shadow: 0 8px 24px rgba(114, 43, 70, 0.28);
+}
+
+/* 바다: 깊은 파랑과 물빛 */
+[data-theme="ocean"] {
+  --primary: #0b4f7a;
+  --primary-2: #0a6396;
+  --accent: #9be7e0;
+  --on-accent: #073a52;
+  --mint: #e9f2f7;
+  --bg: #ffffff;
+  --bg-clear: rgba(255, 255, 255, 0);
+  --surface: #ffffff;
+  --surface-2: #f4f6f8;
+  --ink: #1a1e22;
+  --ink-2: #5a626a;
+  --ink-3: #88919a;
+  --line: #e4e9ed;
+  --star: #f5b300;
+  --star-soft: #fff7e0;
+  --star-ink: #8a6400;
+  --star-empty: #d5dad7;
+  --tab-shadow: 0 8px 24px rgba(11, 79, 122, 0.28);
+}
+
+/* 라벤더: 깊은 보라에 연보라 포인트 */
+[data-theme="lavender"] {
+  --primary: #42357a;
+  --primary-2: #5236a0;
+  --accent: #e6d9ff;
+  --on-accent: #3a2478;
+  --mint: #f0edf8;
+  --bg: #ffffff;
+  --bg-clear: rgba(255, 255, 255, 0);
+  --surface: #ffffff;
+  --surface-2: #f6f5f8;
+  --ink: #1d1b22;
+  --ink-2: #5e5b66;
+  --ink-3: #8c8995;
+  --line: #e8e6ee;
+  --star: #f5b300;
+  --star-soft: #fff7e0;
+  --star-ink: #8a6400;
+  --star-empty: #d5dad7;
+  --tab-shadow: 0 8px 24px rgba(66, 53, 122, 0.28);
+}
+
+/* 노을: 깊은 적갈색에 노랑 포인트 */
+[data-theme="sunset"] {
+  --primary: #7f351b;
+  --primary-2: #92330f;
+  --accent: #ffe08a;
+  --on-accent: #5a2408;
+  --mint: #f9eee7;
+  --bg: #ffffff;
+  --bg-clear: rgba(255, 255, 255, 0);
+  --surface: #ffffff;
+  --surface-2: #f7f5f3;
+  --ink: #221c18;
+  --ink-2: #635b55;
+  --ink-3: #908780;
+  --line: #ece7e2;
+  --star: #f5b300;
+  --star-soft: #fff7e0;
+  --star-ink: #8a6400;
+  --star-empty: #d5dad7;
+  --tab-shadow: 0 8px 24px rgba(127, 53, 27, 0.28);
+}
+
+/* ---------- 관리자 로그인 ---------- */
+
+.login-note {
+  margin-bottom: 22px;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.login .btn-danger.block {
+  margin-top: 8px;
+}
+
+.admin .input:focus {
+  border-color: var(--admin);
+}
+
+.field {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.field-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.field-label small {
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.field-row {
+  display: flex;
+  gap: 8px;
+}
+
+.star-picker {
+  display: flex;
+  gap: 4px;
+  color: var(--star-empty);
+}
+
+.star-picker .is-on {
+  color: var(--star);
+}
+
+.tag-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  padding: 6px 8px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.tag-box:focus-within {
+  border-color: var(--admin);
+}
+
+.tag-field {
+  min-width: 80px;
+  flex: 1;
+  height: 34px;
+  border: 0;
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+}
+
+.tag-field:focus-visible {
+  outline: none;
+}
+
+.chip.removable {
+  background: var(--admin);
+}
+
+.suggest {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.suggest-label {
+  margin-right: 4px;
+  color: var(--ink-3);
+  font-size: 12px;
+}
+
+.delete-entry {
+  display: block;
+  margin: 20px auto 0;
+}
+
+.form .btn-danger.block,
+.form .btn-outline.block {
+  margin-top: 8px;
+}
+
+/* ---------- 댓글 승인 ---------- */
+
+.notice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.notice {
+  display: flex;
+  gap: 12px;
+}
+
+.notice-icon {
+  display: flex;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-md);
+  background: var(--admin-soft);
+  color: var(--admin);
+}
+
+.notice-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.notice-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.notice-title {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.notice-title small {
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.notice-time {
+  flex: none;
+  color: var(--ink-3);
+  font-size: 12px;
+}
+
+.notice-sub {
+  color: var(--ink-3);
+  font-size: 12px;
+}
+
+.notice-bubble {
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 4px var(--r-md) var(--r-md) var(--r-md);
+  background: var(--surface-2);
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.notice-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* 더보기 > 디자인: 화면 구성과 색 테마 고르기 */
+.design-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.design-grid.is-three {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.design-card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 8px 10px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: left;
+}
+
+.design-card.is-active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1.5px var(--primary);
+}
+
+.design-check {
+  display: flex;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-pill);
+  background: var(--primary);
+  color: #fff;
+}
+
+.design-check svg {
+  width: 14px;
+  height: 14px;
+}
+
+.design-name {
+  padding: 0 2px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.design-note {
+  padding: 0 2px;
+  color: var(--ink-3);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* 색 테마 미리보기: data-theme이 이 안에서만 그 테마의 변수를 다시 정해요. */
+.theme-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 104px;
+  padding: 8px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+}
+
+.theme-preview-hero {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  padding: 6px;
+  border-radius: var(--r-xs);
+  background: var(--primary);
+}
+
+.theme-preview-pill {
+  width: 30px;
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+}
+
+.theme-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 20px;
+  padding: 0 5px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-xs);
+  background: var(--surface);
+}
+
+.theme-preview-chip {
+  width: 16px;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--mint);
+}
+
+.theme-preview-text {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--ink-3);
+}
+
+.theme-preview-star {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--star);
+}
+
+/* 화면 구성 미리보기: 지금 고른 색 테마로 그려요. */
+.layout-preview {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 4px;
+  height: 104px;
+  padding: 7px 7px 22px;
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+}
+
+.lp-item {
+  flex: none;
+  height: 18px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-xs);
+  background: var(--surface);
+}
+
+.lp-bar {
+  display: flex;
+  position: absolute;
+  right: 7px;
+  bottom: 6px;
+  left: 7px;
+  align-items: center;
+  justify-content: space-around;
+  height: 12px;
+  border-radius: var(--r-pill);
+  background: var(--primary);
+}
+
+.lp-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.lp-dot.is-on {
+  background: var(--accent);
+}
+
+.layout-preview.is-list .lp-item {
+  height: 15px;
+  border: 0;
+  border-bottom: 1.5px solid var(--line);
+  border-radius: 0;
+  background: none;
+}
+
+.layout-preview.is-list .lp-bar {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 16px;
+  border-top: 1.5px solid var(--line);
+  border-radius: 0;
+  background: var(--surface);
+}
+
+.layout-preview.is-list .lp-dot {
+  background: var(--ink-3);
+}
+
+.layout-preview.is-list .lp-dot.is-on {
+  background: var(--primary);
+}
+
+.layout-preview.is-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 32px;
+}
+
+.layout-preview.is-gallery .lp-item {
+  height: auto;
+}
+
+/* ---------- 화면 구성(레이아웃) ---------- */
+/* <html data-layout="…">로 골라요(lib/theme.ts). 카드형(card)은 위의 기본 스타일 그대로라 규칙이 없어요. */
+
+/* 목록형: 글자 있는 하단 메뉴가 화면 아래에 붙고, 목록은 테두리 없이 줄로 나눠요. */
+[data-layout="list"] {
+  --tab-space: calc(72px + var(--tab-safe));
+}
+
+[data-layout="list"] .tab-bar {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: calc(64px + var(--tab-safe));
+  padding: 0 4px var(--tab-safe);
+  border-top: 1.5px solid var(--line);
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow: none;
+}
+
+[data-layout="list"] .tab {
+  flex-direction: column;
+  gap: 2px;
+  color: var(--ink-3);
+}
+
+[data-layout="list"] .tab-icon,
+[data-layout="list"] .tab.is-active .tab-icon {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+}
+
+[data-layout="list"] .tab-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+[data-layout="list"] .tab.is-active {
+  color: var(--primary);
+}
+
+[data-layout="list"] .tab.is-active .tab-label {
+  font-weight: 800;
+}
+
+[data-layout="list"] .entry-list {
+  gap: 0;
+}
+
+[data-layout="list"] .entry-row {
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1.5px solid var(--line);
+  border-radius: 0;
+  background: none;
+}
+
+[data-layout="list"] .entry-row.is-danger {
+  border-bottom-color: var(--admin-line);
+}
+
+[data-layout="list"] .thumb-row {
+  width: 52px;
+  height: 52px;
+}
+
+/* 작아진 칸에서 글자가 책 표시와 겹치지 않게 줄여요. */
+[data-layout="list"] .thumb-row .thumb-letter {
+  font-size: 21px;
+}
+
+[data-layout="list"] .thumb-hero .thumb-letter {
+  font-size: 28px;
+}
+
+[data-layout="list"] .hero-card {
+  min-height: 0;
+  padding: 14px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+[data-layout="list"] .hero-kicker {
+  color: var(--primary-2);
+}
+
+[data-layout="list"] .hero-title {
+  font-size: 17px;
+}
+
+[data-layout="list"] .hero-author {
+  color: var(--ink-3);
+}
+
+[data-layout="list"] .hero-card .btn-lime {
+  background: var(--primary);
+  color: #fff;
+}
+
+[data-layout="list"] .hero-card .progress-badge {
+  background: var(--mint);
+  color: var(--primary);
+}
+
+[data-layout="list"] .thumb.thumb-hero {
+  width: 72px;
+  height: 72px;
+}
+
+[data-layout="list"] .thumb.thumb-hero.is-icon {
+  background-color: var(--mint);
+  color: var(--primary);
+}
+
+[data-layout="list"] .thumb.thumb-hero.is-book {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+/* 갤러리형: 목록을 큰 썸네일 2열로 보여줘요. 관리자 목록은 줄 그대로예요. */
+[data-layout="gallery"] .screen:not(.admin) .entry-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* 목록 끝의 안내와 불러오기 표시는 한 줄을 다 써요. */
+[data-layout="gallery"] .screen:not(.admin) .entry-list > :not(.entry-row) {
+  grid-column: 1 / -1;
+}
+
+[data-layout="gallery"] .screen:not(.admin) .entry-row {
+  position: relative;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 8px 8px 12px;
+}
+
+[data-layout="gallery"] .screen:not(.admin) .thumb-row {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+
+[data-layout="gallery"] .screen:not(.admin) .thumb-row .thumb-letter {
+  font-size: 40px;
+}
+
+[data-layout="gallery"] .screen:not(.admin) .entry-main {
+  padding: 0 2px;
+}
+
+[data-layout="gallery"] .screen:not(.admin) .entry-meta {
+  flex-wrap: wrap;
+  row-gap: 2px;
+}
+
+/* 좁은 칸에서는 작성자를 한 줄로 두고, 날짜와 댓글 수를 다음 줄에 둬요. 줄 처음에 가운뎃점이 남지 않게 해요. */
+[data-layout="gallery"] .screen:not(.admin) .entry-author {
+  flex-basis: 100%;
+}
+
+[data-layout="gallery"] .screen:not(.admin) .entry-author + span::before {
+  margin-right: 0;
+  content: none;
+}
+
+[data-layout="gallery"] .screen:not(.admin) .entry-row > .rating-badge,
+[data-layout="gallery"] .screen:not(.admin) .entry-row > .progress-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+[data-layout="gallery"] .hero-card {
+  flex-direction: column-reverse;
+  align-items: stretch;
+}
+
+[data-layout="gallery"] .thumb.thumb-hero {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 2;
+}
+
+[data-layout="gallery"] .thumb.thumb-hero .thumb-letter {
+  font-size: 56px;
+}

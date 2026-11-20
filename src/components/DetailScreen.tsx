@@ -4,7 +4,7 @@ import type { Messages } from "../i18n/messages";
 import { addComment, ApiError, deleteComment, fetchEntry, fetchMyComments } from "../lib/api";
 import { fill, formatDate, formatShortTime } from "../lib/format";
 import { SUPPORT_EMAIL } from "../lib/links";
-import { logEvent, openExternal } from "../lib/platform";
+import { IS_WEB, logEvent, openExternal } from "../lib/platform";
 import { MAX_COMMENT, type Comment, type Entry } from "../lib/types";
 import { ConfirmSheet, EntryThumb, LoadFailed, ProgressBadge, Segmented, Spinner, Stars, useToast } from "./common";
 
@@ -177,7 +177,8 @@ export function DetailScreen({ entryId, initial, isAdmin, onTag, onEdit }: Props
       <EntryThumb entry={entry} size="detail" />
       <div className="detail-head">
         <h1 className="detail-title">{entry.title}</h1>
-        {isAdmin && (
+        {/* 관리자 수정은 토스판에만 있어요. */}
+        {!IS_WEB && isAdmin && (
           <button type="button" className="btn-outline danger small" onClick={() => onEdit(entry)}>
             {t("editEntry")}
           </button>
